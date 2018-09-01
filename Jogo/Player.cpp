@@ -71,11 +71,11 @@ void Player::update() {
         else bounds.y = 0;
     }
     if(move_down){
-        if(bounds.y+bounds.h < 400){
-            if(bounds.y+bounds.h < 400 - speed) bounds.y += speed; // se for verdadeiro, vai movimentar normalmente
-            else bounds.y += 400 - (bounds.h+bounds.y);              // se for falso vai completar o encaixe na tela
+        if(bounds.y+bounds.h < GAME_SCREEN_HEIGHT){
+            if(bounds.y+bounds.h < GAME_SCREEN_HEIGHT - speed) bounds.y += speed; // se for verdadeiro, vai movimentar normalmente
+            else bounds.y += GAME_SCREEN_HEIGHT - (bounds.h+bounds.y);              // se for falso vai completar o encaixe na tela
         }
-        else bounds.y = 400 - bounds.h;
+        else bounds.y = GAME_SCREEN_HEIGHT - bounds.h;
     }
     if(move_left){
         if(bounds.x > 0){
@@ -85,11 +85,11 @@ void Player::update() {
         else bounds.x = 0;
     }
     if(move_right){
-        if(bounds.x+bounds.w < 600){
-            if(bounds.x+bounds.w < 600 - speed) bounds.x += speed; // se for verdadeiro, vai movimentar normalmente
-            else bounds.x += 600 - (bounds.w+bounds.x);             // se for falso vai completar o encaixe na tela
+        if(bounds.x+bounds.w < GAME_SCREEN_WIDTH){
+            if(bounds.x+bounds.w < GAME_SCREEN_WIDTH - speed) bounds.x += speed; // se for verdadeiro, vai movimentar normalmente
+            else bounds.x += GAME_SCREEN_WIDTH - (bounds.w+bounds.x);             // se for falso vai completar o encaixe na tela
         }
-        else bounds.x = 600 - bounds.w;
+        else bounds.x = GAME_SCREEN_WIDTH - bounds.w;
     }
     
     if(avalable_bullets < MAX_BULLETS){                                                              // se tiver tiros disparados
@@ -134,7 +134,6 @@ void Player::update() {
 
             std::cout << "teste 2 parte 5" << std::endl;
 
-                                                     
         }
         
         bullet_ticks++;                                                                  // incrementa ticks
@@ -151,7 +150,7 @@ void Player::draw(SDL_Renderer& renderer) {
         sprite_load = true;
     }
     
-    SDL_RenderCopy(&renderer, sprite, NULL, &bounds);
+    SDL_RenderCopy(&renderer, sprite, nullptr, &bounds);
     
     if(avalable_bullets < MAX_BULLETS){                                                   // verifica se existem tiros disparados
         for(int bac = 0; bac < MAX_BULLETS; bac++){
@@ -180,6 +179,7 @@ void Player::create(unsigned int x, unsigned int y, unsigned int width, unsigned
 }
 
 Player::Player(){
+
     this->bounds.x = 0;
     this->bounds.y = 0;
     this->bounds.w = 0;

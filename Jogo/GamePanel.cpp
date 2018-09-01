@@ -12,22 +12,28 @@ bool GamePanel::eventHandler() {
 }
 
 void GamePanel::update() {
+
+
     player.update();
+
+
+
+
+    enemies_manager->update(player);
 }
 
 void GamePanel::draw(SDL_Renderer& renderer) {
     player.draw(renderer);
-    enemy01.draw(renderer);
+    enemies_manager->draw(renderer);
 }
 
 //=========================================}>
 
 GamePanel::GamePanel() {
-    player.create(50, 50, 75, 75, 100);
-    enemy01.create(275, 50, 50, 50, 10);
-}
-
-GamePanel::GamePanel(const GamePanel& orig) {
+    stage = new Stage;
+    level = new Level(stage);
+    enemies_manager = new EnemiesManager(level);
+    player.create(260, 300, 75, 75, 100);
 }
 
 GamePanel::~GamePanel() {

@@ -1,11 +1,19 @@
 #include <locale.h>
 
+#include "GlobalConstants.h"
 #include "Game.h"
 
 
-int main(int argc, char** argv) {
+int main() {
     setlocale(LC_ALL, "portuguese");
-    Game *game  = new Game("Meu Jogo de Nave", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 600, 400, SDL_WINDOW_SHOWN);
+    Game *game  = new Game(
+                "Meu Jogo de Nave",
+                SDL_WINDOWPOS_CENTERED,
+                SDL_WINDOWPOS_CENTERED,
+                GAME_SCREEN_WIDTH,
+                GAME_SCREEN_HEIGHT,
+                SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    game->~Game();
     return 0;
 }
 

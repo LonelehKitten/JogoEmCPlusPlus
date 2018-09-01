@@ -22,7 +22,7 @@ void MainThread::resume() {
     is_running = true;
 }
 
-void MainThread::sleep(unsigned long int milliseconds) {
+void MainThread::sleep(Uint32 milliseconds) {
     SDL_Delay(milliseconds);
 }
 

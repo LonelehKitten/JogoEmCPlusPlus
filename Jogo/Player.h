@@ -8,6 +8,7 @@
 #include <vector>
 #include <math.h>
 
+#include "GlobalConstants.h"
 #include "GameSolids.h"
 #include "TextureManager.h"
 #include "Entity.h"

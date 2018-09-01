@@ -18,7 +18,7 @@ public:
     void resume();
 private:
     void gameloop(SDL_Renderer&);
-    void sleep(unsigned long int);
+    void sleep(Uint32);
     
     GamePanel gpanel;
     
