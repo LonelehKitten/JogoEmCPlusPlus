@@ -10,8 +10,8 @@ int main() {
                 "Meu Jogo de Nave",
                 SDL_WINDOWPOS_CENTERED,
                 SDL_WINDOWPOS_CENTERED,
-                GAME_SCREEN_WIDTH,
-                GAME_SCREEN_HEIGHT,
+                GlobalConstants::getGameScreenWidth(),
+                GlobalConstants::getGameScreenHeight(),
                 SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     game->~Game();
     return 0;

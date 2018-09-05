@@ -13,7 +13,6 @@ bool GamePanel::eventHandler() {
 
 void GamePanel::update() {
 
-
     player.update();
 
 
@@ -33,7 +32,6 @@ GamePanel::GamePanel() {
     stage = new Stage;
     level = new Level(stage);
     enemies_manager = new EnemiesManager(level);
-    player.create(260, 300, 75, 75, 100);
 }
 
 GamePanel::~GamePanel() {

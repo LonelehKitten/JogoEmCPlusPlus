@@ -6,14 +6,13 @@
 #include <GL/gl.h>
 #include <iostream>
 #include <vector>
-#include <math.h>
 
 #include "GlobalConstants.h"
 #include "GameSolids.h"
 #include "TextureManager.h"
 #include "Entity.h"
 
-#define MAX_BULLETS 10
+#define MAX_BULLETS 20
 #define MAX_BULLET_TICKS 5
 
 
@@ -50,8 +49,10 @@ private:
     bool move_right = false;
     
     //player peculiar attributes
-    int speed = 16;
+    int x_acc;
+    int y_acc;
     bool shoot = false;
+    bool was_created;
     
     //bullet controller
     int avalable_bullets = MAX_BULLETS;

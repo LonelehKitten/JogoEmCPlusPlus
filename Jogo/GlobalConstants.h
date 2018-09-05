@@ -2,20 +2,31 @@
 #define GLOBALCONSTANTS_H
 
 #include <SDL2/SDL_video.h>
+#include <cmath>
 
-#ifdef LINUX || Linux || linux || UNIX
+#ifdef __unix__
 #include <X11/Xlib.h>
-#elif WIN32 || Win32 || win32
+#elif defined(_WIN32) || defined(WIN32)
 #include <window.h>
 #endif
 
-#define GAME_SCREEN_WIDTH 700
-#define GAME_SCREEN_HEIGHT 500
-
 class GlobalConstants {
+public:
+    GlobalConstants();
+    ~GlobalConstants();
     static void setFullScreenMode(SDL_Window*, Uint32);
+    static int getGameScreenWidth();
+    static int getGameScreenHeight();
+    static int getProportionalResolutionOf(int);
+
+private:
+    static bool is_fullscreen;
     static int getDeviceScreenWidth();
     static int getDeviceScreenHeight();
+    static const int GAME_SCREEN_WIDTH = 700;
+    static const int GAME_SCREEN_HEIGHT = 500;
+    static int DEVICE_SCREEN_WIDTH;
+    static int DEVICE_SCREEN_HEIGHT;
 };
 
 #endif // GLOBALCONSTANTS_H
