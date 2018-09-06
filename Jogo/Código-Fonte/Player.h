@@ -28,7 +28,7 @@ public:
     Player();
     Player(const Player& orig);
     virtual ~Player();
-    void create(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int);
+    void create(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int);
     void eventHandler(SDL_Event evt);
     void update();
     void draw(SDL_Renderer&);
@@ -49,8 +49,7 @@ private:
     bool move_right = false;
     
     //player peculiar attributes
-    int x_acc;
-    int y_acc;
+    int speed;
     bool shoot = false;
     bool was_created;
     

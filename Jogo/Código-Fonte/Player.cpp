@@ -65,79 +65,42 @@ void Player::eventHandler(SDL_Event evt) {
 void Player::update() {
 
     if(!was_created){
-        create((700/2) - 37, (500/2) - 37, 75, 75, 100);
+        create((700/2) - 37, (500/2) - 37, 75, 75, 100, 10);
         was_created = true;
     }
     
     // KEY PRESSED EVENTS
 
-    if(move_up && !move_down){
-        if(y_acc < 16) y_acc++;
-        if(bounds.y > 0){
-            if(bounds.y > y_acc) bounds.y -= y_acc; // se for verdadeiro, vai movimentar normalmente
-            else bounds.y -= bounds.y;            // se for falso vai completar o encaixe na tela
-        }
-        else bounds.y = 0;
-    }
-    if(move_down && !move_up){
-        if(y_acc > -16) y_acc--;
-        if(bounds.y+bounds.h < GlobalConstants::getGameScreenHeight()){
-            if(bounds.y+bounds.h < GlobalConstants::getGameScreenHeight() - y_acc) bounds.y -= y_acc; // se for verdadeiro, vai movimentar normalmente
-            else bounds.y += GlobalConstants::getGameScreenHeight() - (bounds.h+bounds.y);              // se for falso vai completar o encaixe na tela
-        }
-        else bounds.y = GlobalConstants::getGameScreenHeight() - bounds.h;
-    }
-    if(move_left && !move_right){
-        if(x_acc > -16) x_acc--;
-        if(bounds.x > 0){
-            if(bounds.x > x_acc) bounds.x += x_acc; // se for verdadeiro, vai movimentar normalmente
-            else bounds.x -= bounds.x;           // se for falso vai completar o encaixe na tela
-        }
-        else bounds.x = 0;
-    }
-    if(move_right && !move_left){
-        if(x_acc < 16) x_acc++;
-        if(bounds.x+bounds.w < GlobalConstants::getGameScreenWidth()){
-            if(bounds.x+bounds.w < GlobalConstants::getGameScreenWidth() + x_acc) bounds.x += x_acc; // se for verdadeiro, vai movimentar normalmente
-            else bounds.x += GlobalConstants::getGameScreenWidth() - (bounds.w+bounds.x);             // se for falso vai completar o encaixe na tela
-        }
-        else bounds.x = GlobalConstants::getGameScreenWidth() - bounds.w;
-    }
 
-    //KEY RELEASED EVENTS
 
-    if(!move_up && !move_down && y_acc > 0){
-        y_acc--;
-        if(bounds.y > 0){
-            if(bounds.y > y_acc) bounds.y -= y_acc; // se for verdadeiro, vai movimentar normalmente
-            else bounds.y -= bounds.y;            // se for falso vai completar o encaixe na tela
-        }
-        else bounds.y = 0;
-    }
-    if(!move_up && !move_down && y_acc < 0){
-        y_acc++;
-        if(bounds.y+bounds.h < GlobalConstants::getGameScreenHeight()){
-            if(bounds.y+bounds.h < GlobalConstants::getGameScreenHeight() - y_acc) bounds.y -= y_acc; // se for verdadeiro, vai movimentar normalmente
-            else bounds.y += GlobalConstants::getGameScreenHeight() - (bounds.h+bounds.y);              // se for falso vai completar o encaixe na tela
-        }
-        else bounds.y = GlobalConstants::getGameScreenHeight() - bounds.h;
-    }
-    if(!move_left && !move_right && x_acc < 0){
-        x_acc++;
-        if(bounds.x > 0){
-            if(bounds.x > x_acc) bounds.x += x_acc; // se for verdadeiro, vai movimentar normalmente
-            else bounds.x -= bounds.x;           // se for falso vai completar o encaixe na tela
-        }
-        else bounds.x = 0;
-    }
-    if(!move_left && !move_right && x_acc > 0){
-        x_acc--;
-        if(bounds.x+bounds.w < GlobalConstants::getGameScreenWidth()){
-            if(bounds.x+bounds.w < GlobalConstants::getGameScreenWidth() - x_acc) bounds.x += x_acc; // se for verdadeiro, vai movimentar normalmente
-            else bounds.x += GlobalConstants::getGameScreenWidth() - (bounds.w+bounds.x);             // se for falso vai completar o encaixe na tela
-        }
-        else bounds.x = GlobalConstants::getGameScreenWidth() - bounds.w;
-    }
+    if(move_up){
+       if(bounds.y > 0){
+           if(bounds.y > speed) bounds.y -= speed; // se for verdadeiro, vai movimentar normalmente
+           else bounds.y -= bounds.y;            // se for falso vai completar o encaixe na tela
+       }
+       else bounds.y = 0;
+   }
+   if(move_down){
+       if(bounds.y+bounds.h < GlobalConstants::getGameScreenHeight()){
+           if(bounds.y+bounds.h < GlobalConstants::getGameScreenHeight() - speed) bounds.y += speed; // se for verdadeiro, vai movimentar normalmente
+           else bounds.y += GlobalConstants::getGameScreenHeight() - (bounds.h+bounds.y);              // se for falso vai completar o encaixe na tela
+       }
+       else bounds.y = GlobalConstants::getGameScreenHeight() - bounds.h;
+   }
+   if(move_left){
+       if(bounds.x > 0){
+           if(bounds.x > speed) bounds.x -= speed; // se for verdadeiro, vai movimentar normalmente
+           else bounds.x -= bounds.x;           // se for falso vai completar o encaixe na tela
+       }
+       else bounds.x = 0;
+   }
+   if(move_right){
+       if(bounds.x+bounds.w < GlobalConstants::getGameScreenWidth()){
+           if(bounds.x+bounds.w < GlobalConstants::getGameScreenWidth() - speed) bounds.x += speed; // se for verdadeiro, vai movimentar normalmente
+           else bounds.x += GlobalConstants::getGameScreenWidth() - (bounds.w+bounds.x);             // se for falso vai completar o encaixe na tela
+       }
+       else bounds.x = GlobalConstants::getGameScreenWidth() - bounds.w;
+   }
     
     //SHOOTING EVENTS
 
@@ -218,15 +181,14 @@ void Player::draw(SDL_Renderer& renderer) {
 
 // criação de player==============================
 
-void Player::create(unsigned int x, unsigned int y, unsigned int width, unsigned int height, unsigned int max_health){
+void Player::create(unsigned int x, unsigned int y, unsigned int width, unsigned int height, unsigned int max_health, unsigned int speed){
     this->bounds.x = GlobalConstants::getProportionalResolutionOf(x);
     this->bounds.y = GlobalConstants::getProportionalResolutionOf(y);
     this->bounds.w = GlobalConstants::getProportionalResolutionOf(width);
     this->bounds.h = GlobalConstants::getProportionalResolutionOf(height);
     this->max_health = max_health;
     this->health = this->max_health;
-    this->x_acc = 0;
-    this->y_acc = 0;
+    this->speed = GlobalConstants::getProportionalResolutionOf(speed);
 }
 
 Player::Player(){
